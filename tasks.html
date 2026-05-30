@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Manager</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="tasks">
+
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <h1>My Tasks</h1>
+    <a href="home.html" class="home-btn">←</a>
+  </nav>
+
+  <!-- TASK CONTAINER -->
+  <div class="task-container">
+
+    <!-- TOP CONTROLS -->
+    <div class="top-controls">
+
+      <input type="text" id="taskInput" placeholder="Enter a task...">
+
+      <select id="prioritySelect">
+        <option value="normal">Normal</option>
+        <option value="important">Important</option>
+      </select>
+
+      <button id="addTaskBtn">Add Task</button>
+
+    </div>
+
+    <!-- SEARCH + FILTER -->
+    <!-- SEARCH BAR -->
+<div class="search-section">
+    <input type="text" id="searchInput" placeholder="Search tasks...">
+</div>
+
+<!-- FILTER BUTTONS -->
+<div class="filter-section">
+
+    <button class="filter-btn active" data-filter="all">
+        All Tasks
+    </button>
+
+    <button class="filter-btn" data-filter="completed">
+        Completed
+    </button>
+
+    <button class="filter-btn" data-filter="pending">
+        Pending
+    </button>
+
+    <button class="filter-btn" data-filter="important">
+        Important
+    </button>
+
+</div>
+
+    <!-- TASK LIST -->
+    <div id="taskList" class="task-list"></div>
+
+  </div>
+
+  <script src="tasks.js"></script>
+
+</body>
+</html>

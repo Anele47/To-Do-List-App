@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="loginPage">
+    <div class="container">
+
+    <!-- Login Form -->
+    <div class="form-box active" id="loginForm">
+      <div class="icon">🔐</div>
+      <h2 class="title">Login</h2>
+
+      <input type="email" placeholder="Email Address" />
+      <input type="password" placeholder="Password" />
+
+      <button id="loginbtn">Login</button>
+
+      <p>
+        Don't have an account?
+        <span onclick="showRegister()">Register</span>
+      </p>
+    </div>
+
+    <!-- Register Form -->
+    <div class="form-box" id="registerForm">
+      <div class="icon">📝</div>
+      <h2 class="title">Register</h2>
+
+      <input type="text" placeholder="Full Name" />
+      <input type="email" placeholder="Email Address" />
+      <input type="password" placeholder="Password" />
+      <input type="password" placeholder="Confirm Password" />
+
+      <button>Create Account</button>
+
+      <p>
+        Already have an account?
+        <span onclick="showLogin()">Login</span>
+      </p>
+    </div>
+
+     <div class="forgot-password">
+                <a href="#" id="forgotLink">Forgot Password?</a>
+            </div>
+
+
+        <p class="message" id="message"></p>
+
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+
+</body>
+</html>

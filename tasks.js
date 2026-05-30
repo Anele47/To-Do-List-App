@@ -1,0 +1,185 @@
+// TASK PAGE
+//Task Javascript
+
+const taskInput = document.getElementById("taskInput");
+const prioritySelect = document.getElementById("prioritySelect");
+const addTaskBtn = document.getElementById("addTaskBtn");
+
+const searchInput = document.getElementById("searchInput");
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+let currentFilter = "all";
+
+const taskList = document.getElementById("taskList");
+
+let tasks = [];
+
+/* ADD TASK */
+
+addTaskBtn.addEventListener("click", () => {
+
+    const taskText = taskInput.value.trim();
+
+    if(taskText === ""){
+        alert("Please enter a task");
+        return;
+    }
+
+    const task = {
+        id: Date.now(),
+        text: taskText,
+        completed: false,
+        important: prioritySelect.value === "important"
+    };
+
+    tasks.push(task);
+
+saveTasks();
+
+taskInput.value = "";
+
+displayTasks();
+});
+
+/* DISPLAY TASKS */
+
+function displayTasks(){
+
+    taskList.innerHTML = "";
+
+    let filteredTasks = tasks;
+
+    /* SEARCH */
+
+    const searchValue = searchInput.value.toLowerCase();
+
+    filteredTasks = filteredTasks.filter(task =>
+        task.text.toLowerCase().includes(searchValue)
+    );
+
+    /* FILTER */
+
+    if(currentFilter === "completed"){
+    filteredTasks = filteredTasks.filter(task => task.completed);
+}
+
+if(currentFilter === "pending"){
+    filteredTasks = filteredTasks.filter(task => !task.completed);
+}
+
+if(currentFilter === "important"){
+    filteredTasks = filteredTasks.filter(task => task.important);
+}
+
+    /* SHOW TASKS */
+
+    filteredTasks.forEach(task => {
+
+        const taskCard = document.createElement("div");
+        taskCard.classList.add("task-card");
+
+        const taskInfo = document.createElement("div");
+        taskInfo.classList.add("task-info");
+
+        const taskName = document.createElement("div");
+        taskName.classList.add("task-name");
+
+        if(task.completed){
+            taskName.classList.add("completed");
+        }
+
+        if(task.important){
+            taskName.classList.add("important");
+        }
+
+        taskName.textContent = task.text;
+
+        taskInfo.appendChild(taskName);
+
+        /* BUTTONS */
+
+        const taskButtons = document.createElement("div");
+        taskButtons.classList.add("task-buttons");
+
+        /* COMPLETE BUTTON */
+
+        const completeBtn = document.createElement("button");
+        completeBtn.textContent = "Complete";
+        completeBtn.classList.add("complete-btn");
+
+        completeBtn.addEventListener("click", () => {
+            task.completed = !task.completed;
+            saveTasks();
+            displayTasks();
+        });
+
+        /* EDIT BUTTON */
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+        editBtn.classList.add("edit-btn");
+
+        editBtn.addEventListener("click", () => {
+
+            const updatedTask = prompt("Edit task:", task.text);
+
+            if(updatedTask !== null && updatedTask.trim() !== ""){
+                task.text = updatedTask;
+                saveTasks();
+                displayTasks();
+            }
+
+        });
+
+        /* DELETE BUTTON */
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.classList.add("delete-btn");
+
+        deleteBtn.addEventListener("click", () => {
+
+            tasks = tasks.filter(t => t.id !== task.id);
+            saveTasks();
+
+            displayTasks();
+        });
+
+        taskButtons.appendChild(completeBtn);
+        taskButtons.appendChild(editBtn);
+        taskButtons.appendChild(deleteBtn);
+
+        taskCard.appendChild(taskInfo);
+        taskCard.appendChild(taskButtons);
+
+        taskList.appendChild(taskCard);
+
+    });
+
+}
+
+/* SEARCH + FILTER EVENTS */
+
+searchInput.addEventListener("input", displayTasks);
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        currentFilter = button.dataset.filter;
+
+        displayTasks();
+
+    });
+
+});
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
