@@ -183,3 +183,33 @@ filterButtons.forEach(button => {
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+
+  const savedTheme =
+    localStorage.getItem("theme") || "dark";
+
+  if (savedTheme === "light") {
+    document.body.classList.add("light-mode");
+  }
+
+  const savedFontSize =
+    localStorage.getItem("fontSize") || "Medium";
+
+  document.body.classList.remove(
+    "small-font",
+    "medium-font",
+    "large-font"
+  );
+
+  if (savedFontSize === "Small") {
+    document.body.classList.add("small-font");
+  }
+  else if (savedFontSize === "Large") {
+    document.body.classList.add("large-font");
+  }
+  else {
+    document.body.classList.add("medium-font");
+  }
+
+});
