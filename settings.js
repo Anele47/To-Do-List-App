@@ -78,6 +78,10 @@
         document.getElementById("remember").checked
       );
 
+      applyFontSize(
+        document.getElementById("fontSize").value
+      );
+
       const message =
         document.getElementById("message");
 
@@ -135,4 +139,28 @@
         document.body.classList.add("light-mode");
       }
 
+      applyFontSize(
+  document.getElementById("fontSize").value
+);
+
     }
+
+    function applyFontSize(size) {
+
+  document.body.classList.remove(
+    "small-font",
+    "medium-font",
+    "large-font"
+  );
+
+  if(size === "Small"){
+    document.body.classList.add("small-font");
+  }
+  else if(size === "Large"){
+    document.body.classList.add("large-font");
+  }
+  else{
+    document.body.classList.add("medium-font");
+  }
+
+}
