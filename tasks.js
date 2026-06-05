@@ -184,6 +184,22 @@ function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+function loadTasks() {
+    const savedTasks = localStorage.getItem("tasks");
+
+    if (savedTasks) {
+        tasks = JSON.parse(savedTasks);
+    }
+
+    displayTasks();
+}
+
+loadTasks();
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
 window.addEventListener("DOMContentLoaded", () => {
 
   const savedTheme =
